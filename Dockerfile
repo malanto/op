@@ -6,6 +6,15 @@ WORKDIR /opt/openlist
 # 避免交互式安装提示
 ENV DEBIAN_FRONTEND=noninteractive
 
+# 定义环境变量名（值为空，由运行时传入）
+ENV DB_TYPE= \
+    DB_HOST= \
+    DB_USER= \
+    DB_PASS= \
+    DB_PORT= \
+    DB_NAME= \
+    PORT=
+
 # 更新包列表并安装必要的工具
 RUN apt-get update && \
     apt-get install -y \
