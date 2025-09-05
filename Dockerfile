@@ -16,7 +16,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # 下载并解压 OpenList
-RUN wget https://ghpx.pp.ua/https://github.com/OpenListTeam/OpenList/releases/latest/download/openlist-linux-amd64.tar.gz && \
+RUN wget https://github.com/OpenListTeam/OpenList/releases/latest/download/openlist-linux-amd64.tar.gz && \
     tar -zxvf openlist-linux-amd64.tar.gz && \
     chmod +x ./openlist && \
     rm openlist-linux-amd64.tar.gz
