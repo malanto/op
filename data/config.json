@@ -13,7 +13,7 @@
     "name": "openlist",
     "db_file": "",
     "table_prefix": "x_",
-    "ssl_mode": "REQUIRED",
+    "ssl_mode": "",
     "dsn": ""
   },
   "meilisearch": {
