@@ -20,3 +20,5 @@ EXPOSE 8080
 
 # 设置入口点
 ENTRYPOINT ["./openlist", "server", "--no-prefix"]
+
+USER 10014
