@@ -21,9 +21,6 @@ RUN wget https://github.com/OpenListTeam/OpenList/releases/latest/download/openl
     chmod +x ./openlist && \
     rm openlist-linux-amd64.tar.gz
 
-# 复制数据目录
-COPY data ./data
-
 # 暴露端口（根据 OpenList 的默认端口调整）
 EXPOSE 8080
 
