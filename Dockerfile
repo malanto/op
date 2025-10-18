@@ -24,6 +24,8 @@ RUN apt-get update && \
         wget \
         curl \
         tzdata && \
+        mkdir -p /opt/openlist && \
+        chmod +x /opt/start.sh && \
     rm -rf /var/lib/apt/lists/*
 
 # 暴露端口（根据 OpenList 的默认端口调整）
