@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 
 # 设置工作目录
-WORKDIR /opt/openlist
+WORKDIR /opt
 
 # 避免交互式安装提示
 ENV DEBIAN_FRONTEND=noninteractive
@@ -24,16 +24,10 @@ RUN apt-get update && \
         tzdata && \
     rm -rf /var/lib/apt/lists/*
 
-# 下载并解压 OpenList
-RUN wget https://github.com/OpenListTeam/OpenList/releases/latest/download/openlist-linux-amd64.tar.gz && \
-    tar -zxvf openlist-linux-amd64.tar.gz && \
-    chmod +x ./openlist && \
-    rm openlist-linux-amd64.tar.gz
-
 # 暴露端口（根据 OpenList 的默认端口调整）
-EXPOSE 8080
+EXPOSE 5244
 
 # 设置入口点
-ENTRYPOINT ["./openlist", "server", "--no-prefix"]
+ENTRYPOINT ["/opt/start.sh"]
 
 USER 10014
