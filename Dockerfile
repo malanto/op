@@ -6,6 +6,8 @@ WORKDIR /opt
 # 避免交互式安装提示
 ENV DEBIAN_FRONTEND=noninteractive
 
+COPY . .
+
 # 定义环境变量名（值为空，由运行时传入）
 ENV DB_TYPE= \
     DB_HOST= \
