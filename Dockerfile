@@ -12,13 +12,14 @@ COPY . .
 # 安装 curl（用于健康检查）
 RUN apt-get update && \
     apt-get install -y --no-install-recommends curl && \
-    rm -rf /var/lib/apt/lists/*  && \
-    chmod +x /opt/start.sh
+    rm -rf /var/lib/apt/lists/*
 
 # 设置环境变量
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1
+
+RUN chmod +x /app/start.sh
 
 # 暴露端口（根据 OpenList 的默认端口调整）
 EXPOSE 5000
