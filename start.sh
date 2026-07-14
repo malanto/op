@@ -1,27 +1,40 @@
 #!/bin/bash
 set -e
-set -o pipefail
 
-WORK_DIR="/opt/openlist"
-FILE_NAME="openlist-linux-amd64.tar.gz"
-URL="https://github.com/OpenListTeam/OpenList/releases/latest/download/$FILE_NAME"
+# 配置项（通过环境变量传入）
+REPO_URL="${REPO_URL:-https://github.com/basketikun/chatgpt2api.git}"
+BRANCH="${BRANCH:-main}"
+APP_DIR="/app/chatgpt2api"
 
-echo "=== 启动 OpenList 容器 ==="
-cd "$WORK_DIR"
+echo "🚀 启动更新与部署流程..."
 
-# 清理旧文件
-echo "[1/4] 清理旧文件..."
-rm -f openlist.tar.gz
+# 1. 克隆或更新代码
+if [ -d "$APP_DIR/.git" ]; then
+    echo "📦 代码目录已存在，执行 git pull 更新..."
+    cd "$APP_DIR"
+    git fetch --all
+    git reset --hard "origin/$BRANCH"
+    git pull origin "$BRANCH"
+else
+    echo "📥 首次运行，克隆代码仓库..."
+    git clone --branch "$BRANCH" "$REPO_URL" "$APP_DIR"
+    cd "$APP_DIR"
+fi
 
-# 下载最新版本
-echo "[2/4] 下载 OpenList..."
-wget -q "$URL" -O openlist.tar.gz
+# 2. 安装 Python 依赖
+echo "🐍 安装 Python 依赖..."
+uv sync
 
-# 解压
-echo "[3/4] 解压文件..."
-tar -zxf openlist.tar.gz
-chmod +x ./openlist
+# 3. 安装前端依赖并构建
+echo "📦 安装前端依赖..."
+cd "$APP_DIR/web"
+npm install
+echo "🔨 构建前端..."
+npm run build
 
-# 启动服务（前台运行以保持容器存活）
-echo "[4/4] 启动 OpenList..."
-exec ./openlist server --no-prefix
+# 4. 回到项目根目录
+cd "$APP_DIR"
+
+# 5. 直接启动主服务（所有配置由环境变量提供）
+echo "🌟 启动 ChatGPT2API 服务..."
+exec uv run uvicorn main:app --host 0.0.0.0 --port 8080 --access-log
