@@ -5,6 +5,7 @@ set -e
 REPO_URL="${REPO_URL:-https://github.com/basketikun/chatgpt2api.git}"
 BRANCH="${BRANCH:-main}"
 APP_DIR="/app/chatgpt2api"
+PORT="${PORT:-8080}"
 
 # 确保目录存在
 mkdir -p "$APP_DIR"
@@ -29,4 +30,4 @@ cd "$APP_DIR"
 
 # 5. 直接启动主服务（所有配置由环境变量提供）
 echo "🌟 启动 ChatGPT2API 服务..."
-exec uv run uvicorn main:app --host 0.0.0.0 --port 8080 --access-log
+exec uv run uvicorn main:app --host 0.0.0.0 --port ${PORT} --access-log
