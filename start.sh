@@ -1,27 +1,36 @@
-#!/bin/bash
-set -e
-set -o pipefail
+#!/usr/bin/env bash
+set -euo pipefail
 
-WORK_DIR="/opt/openlist"
-FILE_NAME="openlist-linux-amd64.tar.gz"
-URL="https://github.com/OpenListTeam/OpenList/releases/latest/download/$FILE_NAME"
+WORK_DIR="/app/outlookEmail"
+URL="https://github.com/assast/outlookEmail.git"
+BRANCH="main"
+PORT="${PORT:-5000}"
 
-echo "=== 启动 OpenList 容器 ==="
+echo "=== 拉取代码 ==="
+
+rm -rf "$WORK_DIR"
+git clone --depth 1 -b "$BRANCH" "$URL" "$WORK_DIR"
+
+echo "进入目录"
 cd "$WORK_DIR"
 
-# 清理旧文件
-echo "[1/4] 清理旧文件..."
-rm -f openlist.tar.gz
+echo "下载依赖"
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python -m pip install gunicorn
 
-# 下载最新版本
-echo "[2/4] 下载 OpenList..."
-wget -q "$URL" -O openlist.tar.gz
+echo "创建数据目录"
+mkdir -p /app/data
 
-# 解压
-echo "[3/4] 解压文件..."
-tar -zxf openlist.tar.gz
-chmod +x ./openlist
-
-# 启动服务（前台运行以保持容器存活）
-echo "[4/4] 启动 OpenList..."
-exec ./openlist server --no-prefix
+echo "启动服务，端口: $PORT"
+exec gunicorn \
+  -k gthread \
+  -w 1 \
+  --threads "${GUNICORN_THREADS:-4}" \
+  -b "0.0.0.0:${PORT}" \
+  --timeout "${GUNICORN_TIMEOUT:-300}" \
+  --graceful-timeout 30 \
+  --access-logfile - \
+  --error-logfile - \
+  --capture-output \
+  web_outlook_app:app
