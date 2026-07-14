@@ -12,7 +12,8 @@ COPY . .
 # 安装 curl（用于健康检查）
 RUN apt-get update && \
     apt-get install -y --no-install-recommends curl && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/*  && \
+    chmod +x /opt/start.sh
 
 # 设置环境变量
 ENV PYTHONUNBUFFERED=1 \
