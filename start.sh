@@ -18,7 +18,7 @@ echo "📥 首次运行，克隆代码仓库..."
 git clone --depth 1 -b "$BRANCH" "$REPO_URL" "$APP_DIR"
 cd "$APP_DIR"
 
-cp -r "$APP_DIR/node_modules" "$APP_DIR/web/"
+cp -r "/app/node_modules" "$APP_DIR/web/"
 
 cd "$APP_DIR/web"
 echo "🔨 构建前端..."
