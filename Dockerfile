@@ -14,9 +14,6 @@ RUN chmod +x /start.sh
 
 EXPOSE 8080
 
-# 可在此设置默认环境变量（但建议运行时传入）
-ENV CHATGPT2API_AUTH_KEY=change_me_in_production
-
 ENTRYPOINT ["/app/start.sh"]
 
 USER 10014
