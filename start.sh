@@ -9,17 +9,11 @@ APP_DIR="/app/chatgpt2api"
 echo "🚀 启动更新与部署流程..."
 
 # 1. 克隆或更新代码
-if [ -d "$APP_DIR/.git" ]; then
-    echo "📦 代码目录已存在，执行 git pull 更新..."
-    cd "$APP_DIR"
-    git fetch --all
-    git reset --hard "origin/$BRANCH"
-    git pull origin "$BRANCH"
-else
-    echo "📥 首次运行，克隆代码仓库..."
-    git clone --branch "$BRANCH" "$REPO_URL" "$APP_DIR"
-    cd "$APP_DIR"
-fi
+rm -rf "$APP_DIR"
+echo "📥 首次运行，克隆代码仓库..."
+git clone --branch "$BRANCH" "$REPO_URL" "$APP_DIR"
+cd "$APP_DIR"
+
 
 # 3. 安装前端依赖并构建
 echo "📦 安装前端依赖..."
