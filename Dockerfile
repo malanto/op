@@ -5,11 +5,20 @@ WORKDIR /app
 # 避免交互式安装提示
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y git curl \
-    && curl -LsSf https://astral.sh/uv/install.sh | sh \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    curl \
+    libpq-dev \
+    gcc \
+    openssl \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install --no-cache-dir uv
 
 COPY . .
+
+RUN uv sync --frozen --no-dev --no-install-project
+
 RUN chmod +x /app/start.sh
 
 EXPOSE 8080
