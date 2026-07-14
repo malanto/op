@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-WORK_DIR="/out/outlookEmail"
+WORK_DIR="/app/outlookEmail"
 URL="https://github.com/assast/outlookEmail.git"
 BRANCH="${BRANCH:-main}"
 PORT="${PORT:-5000}"
@@ -19,8 +19,6 @@ python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 python -m pip install gunicorn
 
-echo "创建数据目录"
-mkdir -p /out/data
 
 echo "启动服务，端口: $PORT"
 exec gunicorn \
