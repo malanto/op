@@ -9,7 +9,6 @@ APP_DIR="/app/chatgpt2api"
 echo "🚀 启动更新与部署流程..."
 
 # 1. 克隆或更新代码
-rm -rf "$APP_DIR"
 echo "📥 首次运行，克隆代码仓库..."
 git clone --branch "$BRANCH" "$REPO_URL" "$APP_DIR"
 cd "$APP_DIR"
