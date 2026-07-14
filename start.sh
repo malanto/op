@@ -8,9 +8,9 @@ APP_DIR="/app/chatgpt2api"
 PORT="${PORT:-8080}"
 
 # === 关键：将 npm 的家目录设置为当前项目目录 ===
-export npm_config_cache="$PWD/.npm-cache"
-export npm_config_tmp="$PWD/.npm-tmp"
-export npm_config_logs_dir="$PWD/.npm-logs"
+export npm_config_cache="$APP_DIR/.npm-cache"
+export npm_config_tmp="$APP_DIR/.npm-tmp"
+export npm_config_logs_dir="$APP_DIR/.npm-logs"
 
 # 确保这些目录存在且有写入权限
 mkdir -p "$npm_config_cache" "$npm_config_tmp" "$npm_config_logs_dir"
