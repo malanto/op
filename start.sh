@@ -14,12 +14,6 @@ git clone --depth 1 -b "$BRANCH" "$URL" "$WORK_DIR"
 echo "进入目录"
 cd "$WORK_DIR"
 
-echo "下载依赖"
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-python -m pip install gunicorn
-
-
 echo "启动服务，端口: $PORT"
 exec gunicorn \
   -k gthread \
