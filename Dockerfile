@@ -1,37 +1,22 @@
-FROM ubuntu:22.04
+FROM nikolaik/python-nodejs:python3.12-nodejs22-slim
 
-# 设置工作目录
-WORKDIR /opt
+WORKDIR /app
 
 # 避免交互式安装提示
 ENV DEBIAN_FRONTEND=noninteractive
 
+RUN apt-get update && apt-get install -y git curl \
+    && curl -LsSf https://astral.sh/uv/install.sh | sh \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
 COPY . .
+RUN chmod +x /start.sh
 
-# 定义环境变量名（值为空，由运行时传入）
-ENV DB_TYPE= \
-    DB_HOST= \
-    DB_USER= \
-    DB_PASS= \
-    DB_PORT= \
-    DB_NAME= \
-    PORT=
+EXPOSE 8080
 
-# 更新包列表并安装必要的工具
-RUN apt-get update && \
-    apt-get install -y \
-        ca-certificates \
-        wget \
-        curl \
-        tzdata && \
-        mkdir -p /opt/openlist && \
-        chmod +x /opt/start.sh && \
-    rm -rf /var/lib/apt/lists/*
+# 可在此设置默认环境变量（但建议运行时传入）
+ENV CHATGPT2API_AUTH_KEY=change_me_in_production
 
-# 暴露端口（根据 OpenList 的默认端口调整）
-EXPOSE 5244
-
-# 设置入口点
-ENTRYPOINT ["/opt/start.sh"]
+ENTRYPOINT ["/app/start.sh"]
 
 USER 10014
