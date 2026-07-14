@@ -1,37 +1,28 @@
-FROM ubuntu:22.04
+# 使用 Python 3.11 作为基础镜像
+FROM python:3.11-slim
 
 # 设置工作目录
-WORKDIR /opt
+WORKDIR /app
 
 # 避免交互式安装提示
 ENV DEBIAN_FRONTEND=noninteractive
 
 COPY . .
 
-# 定义环境变量名（值为空，由运行时传入）
-ENV DB_TYPE= \
-    DB_HOST= \
-    DB_USER= \
-    DB_PASS= \
-    DB_PORT= \
-    DB_NAME= \
-    PORT=
-
-# 更新包列表并安装必要的工具
+# 安装 curl（用于健康检查）
 RUN apt-get update && \
-    apt-get install -y \
-        ca-certificates \
-        wget \
-        curl \
-        tzdata && \
-        mkdir -p /opt/openlist && \
-        chmod +x /opt/start.sh && \
+    apt-get install -y --no-install-recommends curl && \
     rm -rf /var/lib/apt/lists/*
 
+# 设置环境变量
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1
+
 # 暴露端口（根据 OpenList 的默认端口调整）
-EXPOSE 5244
+EXPOSE 5000
 
 # 设置入口点
-ENTRYPOINT ["/opt/start.sh"]
+ENTRYPOINT ["/app/start.sh"]
 
 USER 10014
