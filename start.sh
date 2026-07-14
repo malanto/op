@@ -6,13 +6,16 @@ REPO_URL="${REPO_URL:-https://github.com/basketikun/chatgpt2api.git}"
 BRANCH="${BRANCH:-main}"
 APP_DIR="/app/chatgpt2api"
 
-echo "🚀 启动更新与部署流程..."
+# 确保目录存在
+mkdir -p "$APP_DIR"
 
-# 1. 克隆或更新代码
+# 删除目录下所有文件（包括隐藏文件），但保留目录本身
+echo "🧹 清空目录内容: $APP_DIR"
+rm -rf "$APP_DIR"/* "$APP_DIR"/.[!.]* "$APP_DIR"/..?* 2>/dev/null || true
+
 echo "📥 首次运行，克隆代码仓库..."
 git clone --depth 1 -b "$BRANCH" "$REPO_URL" "$APP_DIR"
 cd "$APP_DIR"
-
 
 # 3. 安装前端依赖并构建
 echo "📦 安装前端依赖..."
