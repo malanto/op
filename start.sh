@@ -21,10 +21,6 @@ else
     cd "$APP_DIR"
 fi
 
-# 2. 安装 Python 依赖
-echo "🐍 安装 Python 依赖..."
-uv sync
-
 # 3. 安装前端依赖并构建
 echo "📦 安装前端依赖..."
 cd "$APP_DIR/web"
