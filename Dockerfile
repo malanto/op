@@ -19,6 +19,11 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1
 
+# 安装依赖（包括生产服务器）
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt && \
+    pip install gunicorn
+
 RUN chmod +x /app/start.sh
 
 # 暴露端口（根据 OpenList 的默认端口调整）
