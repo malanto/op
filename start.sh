@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-WORK_DIR="/app/outlookEmail"
+WORK_DIR="/out/outlookEmail"
 URL="https://github.com/assast/outlookEmail.git"
-BRANCH="main"
+BRANCH="${BRANCH:-main}"
 PORT="${PORT:-5000}"
 
 echo "=== 拉取代码 ==="
