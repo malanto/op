@@ -2,7 +2,7 @@
 FROM python:3.11-slim
 
 # 设置工作目录
-WORKDIR /out
+WORKDIR /app
 
 # 避免交互式安装提示
 ENV DEBIAN_FRONTEND=noninteractive
@@ -19,12 +19,12 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1
 
-RUN chmod +x /out/start.sh
+RUN chmod +x /app/start.sh
 
 # 暴露端口（根据 OpenList 的默认端口调整）
 EXPOSE 5000
 
 # 设置入口点
-ENTRYPOINT ["/out/start.sh"]
+ENTRYPOINT ["/app/start.sh"]
 
 USER 10014
