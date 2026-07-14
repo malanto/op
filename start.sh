@@ -20,7 +20,7 @@ python -m pip install -r requirements.txt
 python -m pip install gunicorn
 
 echo "创建数据目录"
-mkdir -p /app/data
+mkdir -p /out/data
 
 echo "启动服务，端口: $PORT"
 exec gunicorn \
