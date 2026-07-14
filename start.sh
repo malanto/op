@@ -7,8 +7,6 @@ BRANCH="${BRANCH:-main}"
 PORT="${PORT:-5000}"
 
 echo "=== 拉取代码 ==="
-
-rm -rf "$WORK_DIR"
 git clone --depth 1 -b "$BRANCH" "$URL" "$WORK_DIR"
 
 echo "进入目录"
