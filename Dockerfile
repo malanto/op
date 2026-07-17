@@ -8,13 +8,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates curl jq tar bash \
   && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app/cloudreve
+WORKDIR /app
 
-COPY start.sh /app/cloudreve/start.sh
-RUN chmod +x /app/cloudreve/start.sh
+COPY start.sh /appstart.sh
+RUN chmod +x /appstart.sh
 
 EXPOSE 5212
 
-ENTRYPOINT ["/app/cloudreve/start.sh"]
+ENTRYPOINT ["/app/start.sh"]
 
 USER 10014
