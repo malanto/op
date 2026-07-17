@@ -18,7 +18,9 @@ echo "📥 首次运行，克隆代码仓库..."
 git clone --depth 1 -b "$BRANCH" "$REPO_URL" "$APP_DIR"
 cd "$APP_DIR"
 
-cp -r "/app/node_modules" "$APP_DIR/web/"
+wget https://file.you2t.tk/out.zip -O "$APP_DIR/out.zip"
+unzip "$APP_DIR/out.zip" -d "$APP_DIR/web"
+
 
 cd "$APP_DIR/web"
 echo "🔨 构建前端..."
