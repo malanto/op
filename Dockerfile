@@ -15,8 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     openssl \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir uv && \
-    npm install --no-audit --no-fund --no-progress
+RUN pip install --no-cache-dir uv
 
 RUN uv sync --frozen --no-dev --no-install-project
 
