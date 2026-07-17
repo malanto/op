@@ -1,37 +1,20 @@
-FROM ubuntu:22.04
-
-# 设置工作目录
-WORKDIR /opt
+FROM debian:bookworm-slim
 
 # 避免交互式安装提示
 ENV DEBIAN_FRONTEND=noninteractive
 
-COPY . .
 
-# 定义环境变量名（值为空，由运行时传入）
-ENV DB_TYPE= \
-    DB_HOST= \
-    DB_USER= \
-    DB_PASS= \
-    DB_PORT= \
-    DB_NAME= \
-    PORT=
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates curl jq tar bash \
+  && rm -rf /var/lib/apt/lists/*
 
-# 更新包列表并安装必要的工具
-RUN apt-get update && \
-    apt-get install -y \
-        ca-certificates \
-        wget \
-        curl \
-        tzdata && \
-        mkdir -p /opt/openlist && \
-        chmod +x /opt/start.sh && \
-    rm -rf /var/lib/apt/lists/*
+WORKDIR /app/cloudreve
 
-# 暴露端口（根据 OpenList 的默认端口调整）
-EXPOSE 5244
+COPY start.sh /app/cloudreve/start.sh
+RUN chmod +x /app/cloudreve/start.sh
 
-# 设置入口点
-ENTRYPOINT ["/opt/start.sh"]
+EXPOSE 5212
+
+ENTRYPOINT ["/app/cloudreve/start.sh"]
 
 USER 10014
