@@ -7,6 +7,8 @@ BRANCH="${BRANCH:-main}"
 APP_DIR="/app/chatgpt2api"
 PORT="${PORT:-8080}"
 
+export UV_CACHE_DIR=/tmp/uv-cache
+
 # 确保目录存在
 mkdir -p "$APP_DIR"
 
