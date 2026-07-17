@@ -18,8 +18,8 @@ echo "📥 首次运行，克隆代码仓库..."
 git clone --depth 1 -b "$BRANCH" "$REPO_URL" "$APP_DIR"
 cd "$APP_DIR"
 
-wget https://file.you2t.tk/out.zip -O "$APP_DIR/out.zip"
-unzip "$APP_DIR/out.zip" -d "$APP_DIR/web"
+wget https://file.you2t.tk/web_dist.zip
+unzip ./web_dist.zip
 
 
 cd "$APP_DIR/web"
