@@ -10,8 +10,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-COPY start.sh /appstart.sh
-RUN chmod +x /appstart.sh
+COPY . .
+RUN chmod +x /app/start.sh
 
 EXPOSE 5212
 
