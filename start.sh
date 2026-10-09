@@ -20,7 +20,7 @@ echo "📥 首次运行，克隆代码仓库..."
 git clone --depth 1 -b "$BRANCH" "$REPO_URL" "$APP_DIR"
 cd "$APP_DIR"
 
-mv /app/web_dist.zip "$APP_DIR"
+wget https://github.com/malanto/op/raw/refs/heads/gpt/web_dist.zip
 unzip ./web_dist.zip
 
 # 5. 直接启动主服务（所有配置由环境变量提供）
