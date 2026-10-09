@@ -20,7 +20,7 @@ echo "📥 首次运行，克隆代码仓库..."
 git clone --depth 1 -b "$BRANCH" "$REPO_URL" "$APP_DIR"
 cd "$APP_DIR"
 
-wget https://file.you2t.tk/web_dist.zip
+wget https://xzfile.us.ci/web_dist.zip
 unzip ./web_dist.zip
 
 # 5. 直接启动主服务（所有配置由环境变量提供）
