@@ -1,1 +1,8 @@
+# Ignore GitPython vulnerability
+
+CVE-2026-78676
+
+# Ignore AnyIO vulnerability
+
+CVE-2026-63374
 
